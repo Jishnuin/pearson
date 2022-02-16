@@ -20,7 +20,6 @@ public class Store implements Serializable {
 	String city;
 	String address;
 	Date openedDate;
-	long calDate;
 
 	public Store(String store_id, String postCode, String city, String address, Date date) {
 		super();

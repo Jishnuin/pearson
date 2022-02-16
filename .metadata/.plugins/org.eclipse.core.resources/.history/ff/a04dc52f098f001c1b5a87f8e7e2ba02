@@ -1,0 +1,15 @@
+package com.pearson.store_backend.dto;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import lombok.Data;
+
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class StoreResponse {
+
+	private String msg;
+	private boolean error;
+	private Object store;
+	private int statusCode;
+}

@@ -50,8 +50,7 @@ public class StoreServiceImpl implements StoreService {
 					store.setAddress(attributes[3] + "," + attributes[4]);
 					String date = attributes[5];
 					store.setOpenedDate(new SimpleDateFormat("dd/MM/yyyy").parse(date));
-					cal = store.getOpenedDate().getDate() - new Date().getDate();
-					store.setCalDate(cal);
+					
 					return store;
 
 				}
@@ -85,9 +84,8 @@ public class StoreServiceImpl implements StoreService {
 				store.setAddress(csvRecordTwo.get("Address"));
 				String date = csvRecordTwo.get("opened Date");
 				store.setOpenedDate(new SimpleDateFormat("dd/MM/yyyy").parse(date));
-				
+
 				cal = store.getOpenedDate().getDate() - new Date().getDate();
-				store.setCalDate(cal);
 				list.add(store);
 			}
 
@@ -95,6 +93,8 @@ public class StoreServiceImpl implements StoreService {
 				return list.stream().sorted(Comparator.comparing(Store::getCity)).collect(Collectors.toList());
 			} else if (sort.equalsIgnoreCase("date")) {
 				return list.stream().sorted(Comparator.comparing(Store::getOpenedDate)).collect(Collectors.toList());
+			} else {
+				throw new StoreException("give an appropriate parameter to sort...Either City or Date...!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

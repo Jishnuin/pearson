@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="StoreServiceImplTest" project="store_backend" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="com.pearson.store_backend.service.StoreServiceImplTest" time="1.299" displayname="StoreServiceImplTest" uniqueid="[engine:junit-jupiter]/[class:com.pearson.store_backend.service.StoreServiceImplTest]">
+    <testcase name="testFetch" classname="com.pearson.store_backend.service.StoreServiceImplTest" time="1.287" displayname="testFetch()" uniqueid="[engine:junit-jupiter]/[class:com.pearson.store_backend.service.StoreServiceImplTest]/[method:testFetch()]"/>
+    <testcase name="testFetchAll" classname="com.pearson.store_backend.service.StoreServiceImplTest" time="0.004" displayname="testFetchAll()" uniqueid="[engine:junit-jupiter]/[class:com.pearson.store_backend.service.StoreServiceImplTest]/[method:testFetchAll()]"/>
+  </testsuite>
+</testrun>

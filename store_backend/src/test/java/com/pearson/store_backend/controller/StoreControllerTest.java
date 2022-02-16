@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pearson.store_backend.dto.Store;
+import com.pearson.store_backend.dto.StoreResponse;
 import com.pearson.store_backend.service.StoreService;
 
 @SpringBootTest
@@ -55,7 +56,7 @@ class StoreControllerTest {
 	}
 
 	@Test
-	void getStoreByIdTest() throws  Exception {
+	void getStoreByIdTest() throws Exception {
 
 		Store store = new Store();
 		store.setStore_id("12");
@@ -67,12 +68,13 @@ class StoreControllerTest {
 		Mockito.when(service.fetch(Mockito.anyString())).thenReturn(store);
 
 		String contentAsString = mockmvc
-				.perform(get("/api/12" + store.getStore_id()).contentType(MediaType.APPLICATION_JSON_VALUE)
+				.perform(get("/api/v1/stores/12" + store.getStore_id()).contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content(mapper.writeValueAsString(store)))
-				.andExpect(MockMvcResultMatchers.status().isFound()).andReturn()
-				.getResponse().getContentAsString();
-		System.out.println(contentAsString);
-		assertEquals(mapper.writeValueAsString(store), contentAsString);
+				.andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse().getContentAsString();
+
+		StoreResponse readValue = mapper.readValue(contentAsString, StoreResponse.class);
+
+		assertEquals("Data found ", readValue.getMsg());
 	}
 
 	@Test
@@ -90,11 +92,10 @@ class StoreControllerTest {
 		when(service.fetchAll("city")).thenReturn(list);
 
 		String contentAsString = mockmvc
-				.perform(get("/api/sort/city").contentType(MediaType.APPLICATION_JSON_VALUE)
-						.content(mapper.writeValueAsString(list)))
-				.andExpect(status().isFound()).andReturn().getResponse().getContentAsString();
-
-		assertEquals(mapper.writeValueAsString(list), contentAsString);
+				.perform(get("/api/v1/stores/sort/city").content(mapper.writeValueAsString(list)))
+				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+				StoreResponse readValue = mapper.readValue(contentAsString,StoreResponse.class);
+		assertEquals("Data found ",readValue.getMsg());
 	}
 
 }

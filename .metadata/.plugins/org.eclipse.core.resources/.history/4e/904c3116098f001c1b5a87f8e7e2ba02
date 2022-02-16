@@ -1,0 +1,12 @@
+package com.pearson.store_backend.dto;
+
+import lombok.Data;
+
+@Data
+public class StoreResponse {
+
+	private String msg;
+	private boolean error;
+	private Object store;
+	private int statusCode;
+}

@@ -1,0 +1,5 @@
+package com.pearson.store_backend.dto;
+
+public class StoreResponse {
+
+}
