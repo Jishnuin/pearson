@@ -1,0 +1,52 @@
+package com.pearson.store_backend.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.pearson.store_backend.dto.Store;
+
+
+
+@ExtendWith(MockitoExtension.class)
+class StoreServiceImplTest {
+
+	@InjectMocks
+	private StoreServiceImpl service;
+	
+	
+	@Test
+	void testGetStoreById() throws IOException {
+		Store store = new Store();
+		store.setAddress("krt");
+		store.setCity("bangalore");
+		store.setOpenedDate(new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"));
+		store.setPostCode("563322");
+		store.setStore_id("12");
+		String[] abc = {"as","df"};
+		
+		CSVReader csvReader = new CSVReader(new FileReader(Mockito.any(File.class)));
+		
+		when(csvReader.readNext()).thenReturn(abc);
+		
+		
+		when(service.getStoreById(store.getStoreId())).thenReturn(store);
+		
+		assertEquals(store,service.getStoreById(store.getStoreId()));
+	}
+
+	@Test
+	void testGetStoresByCity() {
+		fail("Not yet implemented");
+	}
+
+}
+
+
+}

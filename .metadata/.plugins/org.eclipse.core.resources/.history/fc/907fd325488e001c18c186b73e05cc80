@@ -1,0 +1,92 @@
+package com.pearson.store_backend.service;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.pearson.store_backend.dto.Store;
+
+@Service
+public class StoreServiceImpl implements StoreService {
+
+	@Override
+	public Store fetch(String id) {
+
+		try {
+
+			BufferedReader br = new BufferedReader(new FileReader("src/main/resources/Stores.csv"));
+			String line = br.readLine();
+			while (line != null) {
+				String[] attributes = line.split(",");
+				String date = attributes[4];
+				if (attributes[0].equals(id)) {
+					Store store = new Store();
+					store.setStore_id(id);
+					store.setPostCode(attributes[1]);
+					store.setCity(attributes[2]);
+					store.setAddress(attributes[3]);
+					store.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(date));
+					br.readLine();
+
+					return store;
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return null;
+
+	}
+
+	@Override
+	public List<Store> fetchAll(String sort) {
+		
+		if (sort.equalsIgnoreCase("city")) {
+
+			List<Store> list = new ArrayList<Store>();
+			try {
+				BufferedReader br = new BufferedReader(new FileReader("src/main/resources/Stores.csv"));
+				String line = br.readLine();
+				while (line != null) {
+					String[] attributes = line.split(",");
+					String date = attributes[4];
+
+					Store store = new Store();
+					store.setStore_id(attributes[0]);
+					store.setPostCode(attributes[1]);
+					store.setCity(attributes[2]);
+					store.setAddress(attributes[3]);
+					store.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(date));
+					list.add(store);
+					br.readLine();
+
+					return list;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+		}
+		return null;
+
+	}
+
+		
+}

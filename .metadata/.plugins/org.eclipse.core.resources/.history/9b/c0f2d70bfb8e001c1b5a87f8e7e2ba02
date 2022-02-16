@@ -1,0 +1,52 @@
+package com.pearson.store_backend.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.pearson.store_backend.dto.Store;
+
+import au.com.bytecode.opencsv.CSVReader;
+
+
+
+@ExtendWith(MockitoExtension.class)
+class StoreServiceImplTest {
+
+	@InjectMocks
+	private StoreServiceImpl service;
+	
+	
+	@Test
+	void testGetStoreById() throws IOException {
+//		Store store = new Store();
+//		store.setAddress("krt");
+//		store.setCity("bangalore");
+////		store.setOpenedDate(new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"));
+//		store.setPostCode("563322");
+//		store.setStore_id("12");
+
+		Store fetch = service.fetch("1525eec4-7bed-4597-bf5a-e06fcede5f4f");
+		assertEquals("1525eec4-7bed-4597-bf5a-e06fcede5f4f",fetch.getStore_id());
+	}
+
+	@Test
+	void testGetStoresByCity() {
+		fail("Not yet implemented");
+	}
+
+}
+
+
+

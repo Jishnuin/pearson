@@ -1,0 +1,8 @@
+package com.pearson.store_backend.dto;
+
+public interface StoreService {
+
+	public Store fetch(String id);
+	
+	public Store fetchAll();
+}

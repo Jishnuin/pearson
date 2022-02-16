@@ -1,0 +1,5 @@
+package com.pearson.store_backend.service;
+
+public class StoreServiceImpl {
+
+}

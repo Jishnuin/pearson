@@ -1,0 +1,41 @@
+package com.pearson.store_backend.dto;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import org.junit.jupiter.api.Test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+class StoreTest {
+	String json = "{\r\n"
+			+ "    \"store_id\": \"12\",\r\n"
+			+ "    \"postCode\": \"AB11 5PS\",\r\n"
+			+ "    \"city\": \"Aberdeen\",\r\n"
+			+ "    \"address\": \"\\\"\\\"\\\"karnataka\\\"\\\"\\\"\",\r\n"
+			+ "    \"date\": \"1994-03-18T18:30:00.000+00:00\"\r\n"
+			+ "}";
+	ObjectMapper mapper = new ObjectMapper();
+
+	@Test
+	void test() throws JsonProcessingException, ParseException {
+		Store store = new Store();
+		store.setAddress("krt");
+		store.setCity("bangalore");
+		store.setOpenedDate(new SimpleDateFormat("dd/MM/yyyy").parse("18-03-1994"));
+		store.setPostCode("563322");
+		store.setStore_id("12");
+
+//		System.out.println(mapper.writeValueAsString(store));
+
+		Store readValue = mapper.readValue(json, Store.class);
+
+		assertEquals(json, mapper.writeValueAsString(readValue));
+	}
+
+
+
+}

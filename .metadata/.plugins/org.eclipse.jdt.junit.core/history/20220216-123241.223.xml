@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="StoreControllerTest" project="store_backend" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="com.pearson.store_backend.controller.StoreControllerTest" time="3.148" displayname="StoreControllerTest" uniqueid="[engine:junit-jupiter]/[class:com.pearson.store_backend.controller.StoreControllerTest]">
+    <testcase name="getStoreByIdTest" classname="com.pearson.store_backend.controller.StoreControllerTest" time="3.011" displayname="getStoreByIdTest()" uniqueid="[engine:junit-jupiter]/[class:com.pearson.store_backend.controller.StoreControllerTest]/[method:getStoreByIdTest()]"/>
+    <testcase name="getStoresByCityTest" classname="com.pearson.store_backend.controller.StoreControllerTest" time="0.126" displayname="getStoresByCityTest()" uniqueid="[engine:junit-jupiter]/[class:com.pearson.store_backend.controller.StoreControllerTest]/[method:getStoresByCityTest()]"/>
+  </testsuite>
+</testrun>

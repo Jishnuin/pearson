@@ -1,0 +1,18 @@
+package com.pearson.store_backend.exception;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class ExceptionController {
+@ExceptionHandler
+	public String getException(HttpServletRequest request,Exception exception) {
+	String msg= (String) request.getAttribute(exception.getMessage());
+	
+		return "home";
+		
+	}
+	
+}

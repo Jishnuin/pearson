@@ -1,0 +1,87 @@
+package com.pearson.store_backend.controller;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pearson.store_backend.dto.Store;
+import com.pearson.store_backend.service.StoreService;
+@SpringBootTest
+class StoreControllerTest {
+
+	@MockBean
+	private StoreService service;
+
+	private MockMvc mockmvc;
+
+	@Autowired
+	private WebApplicationContext context;
+
+	ObjectMapper mapper = new ObjectMapper();
+
+	@BeforeEach
+	void setUp() throws Exception {
+		mockmvc = MockMvcBuilders.webAppContextSetup(context).build();
+	}
+
+	@Test
+	void getStoreByIdTest() throws UnsupportedEncodingException, Exception {
+
+		Store store = new Store();
+		store.setStore_id("12");
+		store.setPostCode("563322");
+		store.setCity("bangalore");
+		store.setAddress("krt");
+		store.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"));
+
+		when(service.fetch(Mockito.anyString())).thenReturn(store);
+
+		String contentAsString = mockmvc
+				.perform(get("/"+store.getStore_id()).contentType(MediaType.APPLICATION_JSON_VALUE)
+						.content(mapper.writeValueAsString(store)))
+				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+System.out.println(contentAsString);
+		assertEquals(mapper.writeValueAsString(store), contentAsString);
+	}
+
+	@Test
+	void getStoresByCityTest() throws UnsupportedEncodingException, Exception {
+
+		List<Store> list = new ArrayList();
+		Store store = new Store();
+		store.setStore_id("12");
+		store.setPostCode("563322");
+		store.setCity("bangalore");
+		store.setAddress("krt");
+		store.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"));
+		list.add(store);
+
+		when(service.fetchAll(Mockito.anyString())).thenReturn(list);
+
+		String contentAsString = mockmvc
+				.perform(get("/fetchAll/city").contentType(MediaType.APPLICATION_JSON_VALUE)
+						.content(mapper.writeValueAsString(store)))
+				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+
+		assertEquals(mapper.writeValueAsString(list), contentAsString);
+	}
+
+}

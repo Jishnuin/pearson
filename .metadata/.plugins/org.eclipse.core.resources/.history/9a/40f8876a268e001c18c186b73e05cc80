@@ -1,0 +1,15 @@
+package com.pearson.store_backend.dao;
+
+import java.beans.JavaBean;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.pearson.store_backend.dto.Store;
+
+@JavaBean
+public interface StoreDao extends JpaRepository<Store, String> {
+	public Store findByStore_id(String store_id);
+	
+
+}

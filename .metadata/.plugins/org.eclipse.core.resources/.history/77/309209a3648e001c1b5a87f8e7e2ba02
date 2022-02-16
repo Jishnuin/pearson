@@ -1,0 +1,21 @@
+package com.te.springProject.exception;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+
+public class EmployeeException extends RuntimeException{
+
+	 private String msg;
+
+	public EmployeeException(String msg) {
+		super();
+		this.msg = msg;
+	}
+
+	@Override
+	public String getMessage() {
+		return msg;
+	}
+	 
+	
+}

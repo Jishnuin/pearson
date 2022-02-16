@@ -1,0 +1,51 @@
+package com.pearson.store_backend.dto;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+@Component
+public class StoreImpl {
+	
+		List<Store> store = readStoresFromCSV("Stores.csv");
+
+
+	private static List<Store> readStoresFromCSV(String fileName) {
+		List<Store> stores = new ArrayList<>();
+		Path pathToFile = Paths.get(fileName);
+		try {
+			BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII);
+			String line = br.readLine();
+			while (line != null) {
+				String[] attributes = line.split(",");
+				Store store = createStores(attributes);
+				stores.add(store);
+				br.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	private static Store createStores(String[] metadata) throws Exception {
+		String name = metadata[0];
+		String postCode = metadata[1];
+		String city = metadata[3];
+		String address = metadata[4];
+
+		String date = metadata[5];
+		Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+		return new Store(name, postCode, city, address, date1);
+
+	}
+}

@@ -1,0 +1,22 @@
+package com.pearson.store_backend.dto;
+
+import java.util.Date;
+
+import lombok.Data;
+
+@Data
+public class Store {
+	String store_id;
+	String postCode;
+	String city;
+	public Store(String store_id, String postCode, String city, String address, Date date) {
+		super();
+		this.store_id = store_id;
+		this.postCode = postCode;
+		this.city = city;
+		this.address = address;
+		this.date = date;
+	}
+	String address;
+	Date date;
+}

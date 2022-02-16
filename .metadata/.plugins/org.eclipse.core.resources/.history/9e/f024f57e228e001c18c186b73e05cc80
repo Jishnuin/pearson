@@ -1,0 +1,5 @@
+package com.pearson.store_backend.controller;
+
+public class StoreController {
+
+}

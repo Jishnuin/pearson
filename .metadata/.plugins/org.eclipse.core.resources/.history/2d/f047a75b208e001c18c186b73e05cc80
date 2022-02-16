@@ -1,0 +1,5 @@
+package com.pearson.store_backend.dao;
+
+public class StoreDao {
+
+}

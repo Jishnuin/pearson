@@ -1,0 +1,26 @@
+package com.pearson.store_backend.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pearson.store_backend.dao.StoreDao;
+import com.pearson.store_backend.dto.Store;
+
+@Service
+public class StoreServiceImpl implements StoreService {
+	@Autowired
+	private StoreDao dao;
+
+	@Override
+	public Store fetch(String id) {
+		Store store=dao.findByStore_id(id);
+		return store;
+	}
+
+	@Override
+	public Store fetchAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

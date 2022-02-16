@@ -1,0 +1,64 @@
+package com.pearson.store_backend.service;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.pearson.store_backend.dto.Store;
+
+@Service
+public class StoreServiceImpl implements StoreService {
+
+	@Override
+	public Store fetch(String id) throws Exception {
+
+		try {
+			Path pathToFile = Paths.get("/src/main/resources/Stores.csv");
+			BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII);
+			String line = br.readLine();
+			while (line != null) {
+				String[] attributes = line.split(",");
+				String date = attributes[4];
+
+				br.readLine();
+				if (attributes[0] == id)
+					return new Store(attributes[0], attributes[1], attributes[2], attributes[3],
+							new SimpleDateFormat("dd/MM/yyyy").parse(date));
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+
+		return null;
+
+	}
+
+	private Store createStores(String[] metadata) throws Exception {
+		String name = metadata[0];
+		String postCode = metadata[1];
+		String city = metadata[3];
+		String address = metadata[4];
+
+		String date = metadata[5];
+		Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+		return new Store(name, postCode, city, address, date1);
+	}
+
+	@Override
+	public List<Store> fetchAll() {
+
+		return null;
+	}
+
+}

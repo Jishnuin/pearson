@@ -1,0 +1,60 @@
+package com.pearson.store_backend.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.pearson.store_backend.dto.Store;
+
+import au.com.bytecode.opencsv.CSVReader;
+
+
+
+@ExtendWith(MockitoExtension.class)
+class StoreServiceImplTest {
+
+	@InjectMocks
+	private StoreServiceImpl service;
+	
+	
+	@Test
+	void testGetStoreById() throws IOException {
+		Store store = new Store();
+		store.setAddress("krt");
+		store.setCity("bangalore");
+		store.setOpenedDate(new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"));
+		store.setPostCode("563322");
+		store.setStore_id("12");
+		Iterable<CSVRecord> abc = {"as","df"};
+		
+		CSVParser parser = new CSVParser(new FileReader(Mockito.any(File.class)),CSVFormat.DEFAULT);
+		Iterable<CSVRecord> csvRecord = parser.getRecords();
+		int CSVRecord;
+		when(csvRecord = parser.getRecords()).thenReturn(abc);
+		
+		
+		when(service.fetch(store.getStore_id())).thenReturn(store);
+		
+		assertEquals(store,service.fetchAll(store.getStore_id()));
+	}
+
+	@Test
+	void testGetStoresByCity() {
+		fail("Not yet implemented");
+	}
+
+}
+
+
+
